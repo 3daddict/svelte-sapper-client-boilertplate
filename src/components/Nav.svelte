@@ -1,5 +1,17 @@
 <script>
-	export let segment;
+	import { goto, stores } from '@sapper/app';
+
+    export let segment;
+
+    const { session } = stores();
+
+    async function logout() {
+        // Logout function
+        
+        // Remove user from session
+		$session.user = null;
+		goto('/');
+	}
 </script>
 
 <style>
@@ -51,10 +63,12 @@
 <nav>
 	<ul>
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>home</a></li>
-		<li><a aria-current='{segment === "about" ? "page" : undefined}' href='about'>about</a></li>
+		<li><a aria-current='{segment === "login" ? "page" : undefined}' href='login'>login</a></li>
+		<li><a aria-current='{segment === "register" ? "page" : undefined}' href='register'>register</a></li>
+		<li><a aria-current='{segment === "settings" ? "page" : undefined}' href='settings'>settings</a></li>
+		<li><a aria-current='{segment === "logout" ? "page" : undefined}' href='.' on:click={logout}>logout</a></li>
+		<li><a aria-current='{segment === "dashboard" ? "page" : undefined}' href='dashboard'>dashboard</a></li>
 
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<li><a rel=prefetch aria-current='{segment === "blog" ? "page" : undefined}' href='blog'>blog</a></li>
+
 	</ul>
 </nav>
