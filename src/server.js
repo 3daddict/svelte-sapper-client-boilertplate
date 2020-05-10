@@ -15,7 +15,7 @@ const dev = NODE_ENV === 'development';
 polka()
 	.use(bodyParser.json())
 	.use(session({
-		secret: 'conduit',
+		secret: 'secret',
 		resave: false,
 		saveUninitialized: true,
 		cookie: {
@@ -25,15 +25,24 @@ polka()
 			path: process.env.NOW ? `/tmp/sessions` : `.sessions`
 		})
 	}))
+	// Setting default values and for debugging purposes
+	.use(function(req, res, next) {
+		if (typeof req.session.user === 'undefined') {
+			req.session.user = false;
+		}
+		next()
+	})
 	.use(
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		sapper.middleware({
 			session: req => ({
-				user: req.session && req.session.user
+				user: req.session && req.session.user,
+				token: req.session.token
 			})
 		})
 	)
 	.listen(PORT, err => {
 		if (err) console.log('error', err);
 	});
+

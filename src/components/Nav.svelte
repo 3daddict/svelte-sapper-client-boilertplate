@@ -1,108 +1,80 @@
 <script>
-  import { goto, stores } from "@sapper/app";
-  import { post } from "auth.js";
+	import { goto, stores } from "@sapper/app";
+	import { post } from "auth.js";
 
-  export let segment;
+	export let segment;
 
-  const { session } = stores();
+	const { session } = stores();
 
-  async function logout() {
-    await post(`auth/logout`);
-    $session.user = null;
-    goto("/");
-  }
+	async function logout() {
+		await post(`auth/logout`);
+		$session.user = null;
+		goto("/");
+	}
+	  
 </script>
 
 <style>
-  nav {
-    border-bottom: 1px solid rgba(255, 62, 0, 0.1);
-    font-weight: 300;
-    padding: 0 1em;
+	nav, ul {
+		display: flex;
+	}
+	nav {
+		flex-direction: column;
+		align-self: center;
+	}
+	ul {
+		justify-content: center;
+		list-style-type: none;
+		padding: 0;
+	}
+	li {
+		margin: auto 1rem;
+	}
+	.logo {
+		display: none;
+		justify-content: center;
+        width: 120px;
+		margin: 1rem auto 0;
+	}
+	
+	.primary-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #117BCC;
+	text-decoration: none;
   }
 
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  /* clearfix */
-  ul::after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-
-  li {
-    display: block;
-    float: left;
-  }
-
-  [aria-current] {
-    position: relative;
-    display: inline-block;
-  }
-
-  [aria-current]::after {
-    position: absolute;
-    content: "";
-    width: calc(100% - 1em);
-    height: 2px;
-    background-color: rgb(255, 62, 0);
-    display: block;
-    bottom: -1px;
-  }
-
-  a {
-    text-decoration: none;
-    padding: 1em 0.5em;
-    display: block;
-  }
+	.primary-link:hover {
+		color: #0c5e9c;
+		text-decoration: underline;
+	}
+	@media (min-width: 769px) {
+		nav {
+		flex-direction: row;
+		justify-content: space-between;
+		}
+		.logo {
+			margin-top: 0;
+			align-self: center;
+			margin-left: 2rem;
+		}
+	}
 </style>
 
 <nav>
-  <ul>
-    <li>
-      <a aria-current={segment === undefined ? 'page' : undefined} href=".">
-        home
-      </a>
-    </li>
-    {#if !$session.user}
-      <li>
-        <a aria-current={segment === 'login' ? 'page' : undefined} href="login">
-          login
-        </a>
-      </li>
-      <li>
-        <a
-          aria-current={segment === 'register' ? 'page' : undefined}
-          href="register">
-          register
-        </a>
-      </li>
-    {/if}
-    {#if $session.user}
-      <li>
-        <a
-          aria-current={segment === 'settings' ? 'page' : undefined}
-          href="settings">
-          settings
-        </a>
-      </li>
-      <li>
-        <a
-          aria-current={segment === 'logout' ? 'page' : undefined}
-          href="."
-          on:click={logout}>
-          logout
-        </a>
-      </li>
-      <li>
-        <a
-          aria-current={segment === 'dashboard' ? 'page' : undefined}
-          href="dashboard">
-          dashboard
-        </a>
-      </li>
-    {/if}
-  </ul>
+	<img class="logo" src="https://picsum.photos/seed/picsum/100/50" alt="Project Login Logo" loading="lazy" width="120">
+	<ul>
+		<li><a class="primary-link" aria-current='{segment === undefined ? "page" : undefined}' href='.'>home</a></li>
+		{#if !$session.user}
+			<li><a class="primary-link" aria-current='{segment === "register" ? "page" : undefined}' href='register'>Register</a></li>
+			<li><a class="primary-link" aria-current='{segment === "login" ? "page" : undefined}' href='login'>Login</a></li>
+			<li><a class="primary-link" aria-current='{segment === "forgot" ? "page" : undefined}' href='forgot'>Forgot</a></li>
+		{/if}
+		{#if $session.user}
+			<li><a class="primary-link" aria-current='{segment === "dashboard" ? "page" : undefined}' href='dashboard'>Dashboard</a></li>
+			<li><a class="primary-link" aria-current='{segment === "projects" ? "page" : undefined}' href='projects'>Projects</a></li>
+			<li><a class="primary-link" aria-current='{segment === "logout" ? "page" : undefined}' href='.' on:click={logout}>Logout</a></li>
+		{/if}
+	</ul>
 </nav>

@@ -1,5 +1,23 @@
+<script context="module">
+    export function preload(page, { user }) {
+		// console.log('module user:', user);
+        return { user };
+    };
+</script>
+<script>
+	import { stores } from '@sapper/app';
+
+	const { session } = stores();
+	
+</script>
+
 <style>
-	h1, figure, p {
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		margin: 0 auto;
+	}
+	h1, figure {
 		text-align: center;
 		margin: 0 auto;
 	}
@@ -21,10 +39,6 @@
 		margin: 0 0 1em 0;
 	}
 
-	p {
-		margin: 1em auto;
-	}
-
 	@media (min-width: 480px) {
 		h1 {
 			font-size: 4em;
@@ -33,14 +47,15 @@
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Platform</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<div class="wrapper">
+	<h1>Great success!</h1>
 
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
+	<figure>
+		<img alt='Borat' src='great-success.png'>
+		<figcaption>HIGH FIVE!</figcaption>
+	</figure>
 
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+</div>

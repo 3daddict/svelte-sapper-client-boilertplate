@@ -1,10 +1,12 @@
 <script context="module">
   export async function preload(page, session) {
-    const { user } = session;
-    const { path } = page;
+	const { user , token } = session;
+	const { path } = page;
 
-    const loginRoutes = ["/dashboard", "/settings"];
-    const logoutRoutes = ["/login", "/register"];
+	// Protected Routes
+	const loginRoutes = ["/dashboard", "/settings","/projects"];
+	// Public Routes
+    const logoutRoutes = ["/login", "/register", "/forgot"];
 
     if (user && logoutRoutes.includes(path)) {
       return this.redirect(302, "dashboard");
@@ -12,29 +14,30 @@
       return this.redirect(302, "login");
     }
 
-    return { user };
+    return { user, token };
   }
 </script>
-
 <script>
-  import Nav from "../components/Nav.svelte";
+	import Nav from '../components/Nav.svelte';
 
-  export let segment;
+	export let segment;
 </script>
 
 <style>
-  main {
-    position: relative;
-    max-width: 56em;
-    background-color: white;
-    padding: 2em;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
+	main {
+		position: relative;
+		background: #F6F6F6;
+		height: calc(100vh - 49px);
+		width: 100%;
+	}
+
+	@media (min-width: 600px) {
+
+	}
 </style>
 
-<Nav {segment} />
+<Nav {segment}/>
 
 <main>
-  <slot />
+	<slot></slot>
 </main>
