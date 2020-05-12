@@ -31,12 +31,17 @@
     }
 
     if (response.user) {
-      //! I think this is doing nothing!!!
-      // $session.user = response.user;
-      // $session.token = response.token;
+      $session.user = response.user;
       goto("/dashboard");
     }
   }
+
+  //   Another suggestion. If the routes don't have a subroute, don't create a folder
+  //   with the name and then create a index.svelte File. That is not a very good
+  //   practive with Svelte
+
+  // other thing, register.svelte is not on route and that refresh the page enterily. Place
+  // that file inside the route folder
 </script>
 
 <style>

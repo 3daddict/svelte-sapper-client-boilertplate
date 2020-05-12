@@ -119,6 +119,8 @@
           aria-current={segment === 'projects' ? 'page' : undefined}
           href="projects"
           rel="prefetch">
+          <!-- please, look at the rel="prefetch". This is responsible of the preload
+					when you hover on the link -->
           Projects
         </a>
       </li>
