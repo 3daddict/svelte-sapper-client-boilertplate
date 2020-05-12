@@ -1,82 +1,77 @@
 <script context="module">
-import * as api from 'api.js';
+  import * as api from "api.js";
 
   export async function preload({}, { user, token }) {
-    console.log('Server Side User', user)
-    console.log('Server Side Token', token)
-    const projects = await api.get(`projects`, token)
-        .then((response) => {
-            console.log('PROJECTS:', response)
-            return response.data;
-        })
-        .catch(error => console.log('error', error));
-		
+    console.log("Server Side User", user);
+    console.log("Server Side Token", token);
+    const projects = await api
+      .get(`projects`, token)
+      .then(response => {
+        console.log("PROJECTS:", response);
+        return response.data;
+      })
+      .catch(error => console.log("error", error));
+
+    // you need to retrieve something to the client side
+    return { projects };
   }
 </script>
 
 <script>
-    import { onMount, onDestroy } from 'svelte';
-    import { stores } from '@sapper/app';
-    import { post } from 'auth.js';
+  import { onMount, onDestroy } from "svelte";
+  import { stores } from "@sapper/app";
+  import { post } from "auth.js";
 
-    const { session } = stores();
-    console.log('client-side user:', $session.user);
+  // projects is imported in the client side as props
+  export let projects;
+  // let inProgress;
+  // let errors;
 
-    let projects;
-    let inProgress;
-    let errors;
+  onMount(async () => {});
 
-    onMount(async () => {
-		
-	});
-    
-    onDestroy(() => {
-		
-    });
-    
-
+  onDestroy(() => {});
 </script>
 
 <style>
-    div.header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 0 24px;
-        padding: 32px 0 0;
-    }
+  div.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 24px;
+    padding: 32px 0 0;
+  }
 
-    h1 {
-        font-size: 34px;
-        letter-spacing: 0.24px;
-        align-self: center;
-        margin: 0;
-    }
-    i {
-        color: #757575;
-        margin-top: 8px;
-        cursor: pointer;
-    }
+  h1 {
+    font-size: 34px;
+    letter-spacing: 0.24px;
+    align-self: center;
+    margin: 0;
+  }
+  i {
+    color: #757575;
+    margin-top: 8px;
+    cursor: pointer;
+  }
 
-    hr {
-        margin: 24px;
-        border: 1px solid #E0E0E0;
-    }
+  hr {
+    margin: 24px;
+    border: 1px solid #e0e0e0;
+  }
 
-    .hr-break {
-        margin-top: 48px;
-    }
+  .hr-break {
+    margin-top: 48px;
+  }
 
-    h2 {
-        font-size: 20px;
-        letter-spacing: 0.24px;
-        margin: 0 0 8px 24px;
-    }
+  h2 {
+    font-size: 20px;
+    letter-spacing: 0.24px;
+    margin: 0 0 8px 24px;
+  }
 
-    /* a {
+  /* a {
         text-decoration: none;
-    } 
-    
+    }
+
     .card {
       display: flex;
       flex-direction: column;
@@ -122,20 +117,19 @@ import * as api from 'api.js';
 </style>
 
 <div class="header">
-    <h1>Your Plateform Projects</h1>
-    <i class="material-icons-outlined">settings</i>
+  <h1>Your Plateform Projects</h1>
+  <i class="material-icons-outlined">settings</i>
 </div>
 
 <hr />
 
 <h2>Projects</h2>
 
-<pre>{JSON.stringify($projects, null, 2)}</pre>
+<pre>{JSON.stringify(projects, null, 2)}</pre>
 
 <!-- {#each Object.keys($projects) as key}
     <p key={key}>{$projects[key]}</p>
 {/each} -->
-
 
 <!-- {#each $projects as project}
     <a href=".">
