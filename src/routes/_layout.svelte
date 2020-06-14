@@ -4,12 +4,16 @@
 	const { path } = page;
 
 	// Protected Routes
+<<<<<<< HEAD
+	const loginRoutes = ["/dashboard", "/settings","/projects", "/accounts" , "/account"];
+=======
 	const loginRoutes = ["/dashboard", "/settings","/projects"];
+>>>>>>> dev
 	// Public Routes
     const logoutRoutes = ["/login", "/register", "/forgot"];
 
     if (user && logoutRoutes.includes(path)) {
-      return this.redirect(302, "dashboard");
+      return this.redirect(302, "accounts");
     } else if (!user && loginRoutes.includes(path)) {
       return this.redirect(302, "login");
     }
@@ -23,6 +27,11 @@
 	export let segment;
 </script>
 
+<<<<<<< HEAD
+<Nav {segment}/>
+
+<main class="h-nav-mobile w-screen md:h-nav-desktop">
+=======
 <style>
 	main {
 		position: relative;
@@ -39,5 +48,6 @@
 <Nav {segment}/>
 
 <main>
+>>>>>>> dev
 	<slot></slot>
 </main>

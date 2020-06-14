@@ -79,7 +79,11 @@
   .banned {
     position: absolute;
     right: 19px;
+<<<<<<< HEAD
+    top: 29px;
+=======
     top: 28px;
+>>>>>>> dev
     height: 15px;
     width: 0px;
     border-bottom: 3px solid rgba(0, 0, 0, 0.38);
@@ -90,8 +94,13 @@
   }
 
   .invert {
+<<<<<<< HEAD
+    right: 16px;
+    top: 30px;
+=======
     right: 19px;
     top: 25px;
+>>>>>>> dev
     height: 15px;
     width: 0px;
     border-bottom: 6px solid #FFF;
