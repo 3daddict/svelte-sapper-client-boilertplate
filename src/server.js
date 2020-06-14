@@ -15,7 +15,11 @@ const dev = NODE_ENV === 'development';
 polka()
 	.use(bodyParser.json())
 	.use(session({
+<<<<<<< HEAD
 		secret: 'slousberrystoufferforkiki',
+=======
+		secret: 'secret',
+>>>>>>> dev
 		resave: false,
 		saveUninitialized: true,
 		cookie: {

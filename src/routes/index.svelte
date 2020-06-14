@@ -33,6 +33,15 @@
 		margin: 0 0 1em 0;
 	}
 
+<<<<<<< HEAD
+=======
+	img {
+		width: 100%;
+		max-width: 400px;
+		margin: 0 0 1em 0;
+	}
+
+>>>>>>> dev
 	@media (min-width: 480px) {
 		h1 {
 			font-size: 4em;
@@ -41,6 +50,7 @@
 </style>
 
 <svelte:head>
+<<<<<<< HEAD
 	<title>Platform | Pure Data Pwnage</title>
 </svelte:head>
 
@@ -49,6 +59,16 @@
 
 	<figure>
 		<img class="mx-auto max-w-sm w-auto" alt='Borat' src='great-success.png'>
+=======
+	<title>Platform</title>
+</svelte:head>
+
+<div class="wrapper">
+	<h1>Great success!</h1>
+
+	<figure>
+		<img alt='Borat' src='great-success.png'>
+>>>>>>> dev
 		<figcaption>HIGH FIVE!</figcaption>
 	</figure>
 

@@ -4,7 +4,11 @@
 	const { path } = page;
 
 	// Protected Routes
+<<<<<<< HEAD
 	const loginRoutes = ["/dashboard", "/settings","/projects", "/accounts" , "/account"];
+=======
+	const loginRoutes = ["/dashboard", "/settings","/projects"];
+>>>>>>> dev
 	// Public Routes
     const logoutRoutes = ["/login", "/register", "/forgot"];
 
@@ -23,8 +27,27 @@
 	export let segment;
 </script>
 
+<<<<<<< HEAD
 <Nav {segment}/>
 
 <main class="h-nav-mobile w-screen md:h-nav-desktop">
+=======
+<style>
+	main {
+		position: relative;
+		background: #F6F6F6;
+		height: calc(100vh - 49px);
+		width: 100%;
+	}
+
+	@media (min-width: 600px) {
+
+	}
+</style>
+
+<Nav {segment}/>
+
+<main>
+>>>>>>> dev
 	<slot></slot>
 </main>
