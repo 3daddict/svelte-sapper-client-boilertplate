@@ -2,6 +2,8 @@
     import { onMount, onDestroy } from 'svelte';
     import { goto, stores } from '@sapper/app';
     import { post } from "auth.js";
+    import { isEmail } from '../../helpers/validate';
+
     import TextInput from '../../components/UI/TextInput.svelte';
     import Button from '../../components/UI/Button.svelte';
 
@@ -21,20 +23,27 @@
 
     let email = '';
 	let password = '';
-    let errors = null;
+    let errors = '';
+    let success = '';
+    let disabled = false;
 
     async function submit() {
-        const response = await post(`auth/login`, { email, password });
-        // TODO handle network errors
-        // errors = response.errors;
-        if(errors) {
-            
+        console.log('Request Submitted')
+        let emailCheck = isEmail(email);
+        if (!emailCheck) {
+            return errors = "Please enter a valid email address"
+        }
+        const response = await post(`auth/forgot`, { email });
+        console.log('RESPONSE:', response);
+
+        if (response.success === false) {
+            return errors = response.error;
         }
 
-        if (response.user) {
-            $session.user = response.user;
-            $session.token = response.token;
-            goto("/dashboard");
+        if (response.success === true && response.data === "Email sent") {
+            document.getElementById('errorMsg').style.display = "none";
+            disabled = true;
+            success = "Got it, please check your email."
         }
     }
 
@@ -46,18 +55,17 @@
         background: #F6F6F6;
     }
     .card-wrapper {
-        display: flex;
         width: 100%;
         margin: 0 auto;
         background: #FFF;
     }
     .card-container {
-        width: 100%;
         margin: 0 24px;
         background: #FFF;
     }
     .logo-container {
-        text-align: center;
+        display: flex;
+        flex-direction: column;
     }
     .logo {
         width: 120px;
@@ -73,7 +81,6 @@
         margin: 16px auto 32px;
         align-self: center;
     }
-
     .btn-group {
         display: flex;
         flex-wrap: wrap;
@@ -85,35 +92,34 @@
         align-self: center;
     }
 
-    .link-container {
-        position: absolute;
-        bottom: 32px;
-        left: 50%;
-        transform: translateX(-50%)
+    .error {
+        color: #D93025;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .success {
+        color: #000;
+        font-size: 12px;
+        margin: 0;
     }
 
     @media (min-width: 769px) {
         .card-wrapper {
-            width: 440px;
-            height: 440px;
-            margin: 0 auto;
-            box-shadow: 0px 1px 3px #00000066;
-            border-radius: 8px;
-        }
-
-        .link-container{
-            position: relative;
-            margin: 117px auto 0;
-            text-align: center;
-        }
+                width: 440px;
+                height: 440px;
+                box-shadow: 0px 1px 3px #00000066;
+                border-radius: 8px;
+            }
     }
 </style>
+
 <div class="top-margin"></div>
 <div class="card-wrapper">
     <div class="card-container">
         <div class="logo-container">
             <img class="logo" src="https://picsum.photos/seed/picsum/200/200" alt="Platform Login Logo" loading="lazy" width="120">
-            <h2>Sign in to continue to Plateform.</h2>
+            <h2>Enter your email to reset your password.</h2>
         </div>
         <form on:submit|preventDefault={submit}>
             <div class="form-item">
@@ -123,48 +129,23 @@
                         ariaLabel="email"
                         value={email}
                         on:input={event => (email = event.target.value)}
-                    />
-            </div>
-            <div class="form-item">
-                <TextInput
-                        controlType="password"
-                        type="password"
-                        placeholder="Password"
-                        ariaLabel="password"
-                        value={password}
-                        on:input={event => (password = event.target.value)}
+                        disabled={disabled}
                     />
             </div>
             <div class="btn-group">
-                <div class="btn-item">
-                    <Button 
-                        mode="link"
-                        color="primary-link"
-                        href="/forgot"
-                        >FORGOT PASSWORD?</Button>
-                </div>
+                <p class="error" id="errorMsg">{errors}</p>
+                <p class="success">{success}</p>
                 <div class="btn-item">
                     <Button 
                         mode="button"
                         color="primary"
                         type="button" 
-                        disabled={!email || !password}
+                        disabled={!email || disabled === true}
                         on:click={submit}
-                        >Login</Button>
+                        >Continue</Button>
                 </div>
             </div>
         </form>
-        <div class="link-container">
-            <Button 
-                mode="link"
-                color="secondary-link link-item"
-                href="/terms"
-                >Terms</Button>
-            <Button 
-                mode="link"
-                color="secondary-link link-item"
-                href="/privacy"
-                >Privacy</Button>
-        </div>
+        
     </div>
 </div>
