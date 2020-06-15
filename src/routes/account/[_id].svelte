@@ -20,7 +20,7 @@
 	const projects = accountData.projects;
 	JSON.stringify(projects)
 
-	console.log(accountData)
+	//console.log(accountData)
 
 	if(accountData) {
 		//activeName = accountData.accountName;
@@ -38,7 +38,8 @@
 {#if projects}
 	 {#each projects as project}
 	<li>
-		<a class="hover:underline text-blue-500" href="/project/{project._id}" id="{project._id}">{project.projectName}</a>
+		<!-- /project routes are not setup yet so this link will 404 -->
+		<a rel="prefetch" class="hover:underline text-blue-500" href="/project/{project._id}" id="{project._id}">{project.projectName}</a>
 	</li>
 {:else}
 	<li>
