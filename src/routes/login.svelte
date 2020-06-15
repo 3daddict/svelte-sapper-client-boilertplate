@@ -24,7 +24,7 @@
         if (response.user) {
             $session.user = response.user;
             $session.token = response.token;
-                goto("/accounts");
+                goto("/account");
         }
     }
 

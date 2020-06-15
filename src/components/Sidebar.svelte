@@ -3,21 +3,19 @@ import * as api from 'api.js'
 import { onMount, afterUpdate, onDestroy } from 'svelte';
 import { goto, stores } from "@sapper/app";
 import { fade, fly, slide, scale } from 'svelte/transition';
-import Button from './Button.svelte';
+import Button from './UI/Button.svelte';
 const { session } = stores();
 
 export let toggle = true;
 let data = [];
 
 onMount(async () => {
-		({ data } = await api.get(`accounts/`, $session.token, $session.user._id))
+    console.log('Fetching Data...');
+	({ data } = await api.get(`accounts/`, $session.token, $session.user._id))
     });
 
-afterUpdate(() => {
-    data = data;
-})
-
 onDestroy(() => {
+    console.log('Destroy Data...');
     data = [];
 })
 
@@ -42,7 +40,7 @@ onDestroy(() => {
                      {#each data as account}
                             <div class="flex py-2 hover:bg-blue-100 hover:text-blue-500">
                             <i class="material-icons-outlined my-auto pl-2 pr-4">corporate_fare</i>
-                            <a class="flex flex-col" href="account/{account._id}" on:click="{() => toggle = !toggle}">
+                            <a rel="prefetch" class="flex flex-col" href="account/{account._id}" on:click="{() => toggle = !toggle}">
                                 <h3 class="text-base">{account.accountName}</h3>
                                 <p class="text-xs">{account._id}</p>
                             </a>

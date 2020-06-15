@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { goto, stores } from "@sapper/app";
   import { post } from "auth.js";
-  import Sidebar from './UI/Sidebar.svelte';
+  import Sidebar from './Sidebar.svelte';
   const { page, session } = stores();
   
   export let segment;
@@ -10,6 +10,7 @@
   let active = true;
 
   async function logout() {
+	  console.log('Logout Clicked');
     await post(`auth/logout`);
 	// $session.user = null;
 	session.set({ token: null, user: null })
@@ -53,11 +54,8 @@
 				<p class="pl-2">Logout</p>
 			</a>
 			<span class="h-10 w-px bg-gray-900 align-middle mx-6"></span>
-			{#if $session.user && $page.path.includes('/account/')}
-				<div class="cursor-pointer" on:click="{() => active = !active}">{activeName ? activeName : "DEBUG"}<i class="material-icons-outlined align-middle pl-3">menu</i></div>
-			{/if}
 			{#if $session.user}
-			<div class="cursor-pointer" on:click="{() => active = !active}">Account Name<i class="material-icons-outlined align-middle pl-3">menu</i></div>
+				<div rel="prefetch" class="cursor-pointer" on:click="{() => active = !active}">Account Name<i class="material-icons-outlined align-middle pl-3">menu</i></div>
 			{/if}
 		</div>
 		{#if $session.user}

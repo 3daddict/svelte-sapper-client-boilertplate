@@ -4,7 +4,7 @@
 	const { path } = page;
 
 	// Protected Routes
-	const loginRoutes = ["/dashboard", "/settings", "/accounts" , "/account"];
+	const loginRoutes = ["/dashboard", "/settings", "/account"];
 	// Public Routes
     const logoutRoutes = ["/login", "/register", "/forgot"];
 
