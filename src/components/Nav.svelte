@@ -3,6 +3,7 @@
   import { goto, stores } from "@sapper/app";
   import { post } from "auth.js";
   import Sidebar from './UI/Sidebar.svelte';
+  import { accountStore } from "../store/accountStore";
   const { page, session } = stores();
   
   export let segment;
@@ -11,8 +12,8 @@
 
   async function logout() {
     await post(`auth/logout`);
-	// $session.user = null;
 	session.set({ token: null, user: null })
+	accountStore.set([]);
     goto("/");
   }
 
