@@ -5,26 +5,10 @@
   import { fade, fly, slide, scale } from "svelte/transition";
   import Button from "./Button.svelte";
   const { session } = stores();
-  import { accounts } from "../../store/accounts";
+  import { accountStore } from "../../store/accountStore";
 
   export let toggle = true;
 
-  $: console.log("nav", $accounts);
-  // let data = [];
-
-  // onMount(async () => {
-  // 		({ data } = await api.get(`accounts/`, $session.token, $session.user._id))
-  //     });
-
-  // afterUpdate(() => {
-  //     data = data;
-  // })
-
-  // onDestroy(() => {
-  //     data = [];
-  // })
-
-  //$: console.log('Sidebar accountData:', data);
 </script>
 
 <aside
@@ -42,8 +26,8 @@
       </div>
       <div class="pt-6 mx-4">
         <h4 class="text-gray-600 pl-2 text-xs pb-4">PROJECTS</h4>
-        {#if $session.user && $accounts.length > 0}
-          {#each $accounts as account}
+        {#if $session.user && $accountStore.length > 0}
+          {#each $accountStore as account}
             <div class="flex py-2 hover:bg-blue-100 hover:text-blue-500">
               <i class="material-icons-outlined my-auto pl-2 pr-4">
                 corporate_fare
