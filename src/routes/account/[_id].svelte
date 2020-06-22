@@ -43,6 +43,7 @@
         <a
           class="hover:underline text-blue-500"
           href="project/{project._id}"
+          rel="prefetch"
           id={project._id}>
           {project.projectName}
         </a>

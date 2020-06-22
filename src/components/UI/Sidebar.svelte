@@ -34,6 +34,7 @@
               <a
                 class="flex flex-col"
                 href="account/{account._id}"
+                rel="prefetch"
                 on:click={() => (toggle = !toggle)}>
                 <h3 class="text-base">{account.accountName}</h3>
                 <p class="text-xs">{account._id}</p>
