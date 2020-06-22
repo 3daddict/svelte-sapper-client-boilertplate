@@ -2,8 +2,8 @@
   import * as api from "api.js";
 
   export async function preload(page, session) {
-    //console.log('page', page);
-    //console.log('session', session);
+    console.log("page in [_id.svelte]", page);
+    console.log("session in [_id.svelte]", session);
     const { _id } = page.params;
 
     const res = await api.get(
@@ -13,7 +13,7 @@
     );
     const accountData = res.data;
 
-    console.log("server _id", accountData);
+    console.log("individual acount _id", accountData);
 
     return { accountData };
   }
@@ -21,7 +21,7 @@
 
 <script>
   export let accountData;
-  console.log("client _id", accountData);
+  // console.log("client _id", accountData);
 
   $: projects = accountData.projects;
 
@@ -42,7 +42,7 @@
       <li>
         <a
           class="hover:underline text-blue-500"
-          href="/project/{project._id}"
+          href="project/{project._id}"
           id={project._id}>
           {project.projectName}
         </a>

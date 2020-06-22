@@ -5,10 +5,9 @@
   import { fade, fly, slide, scale } from "svelte/transition";
   import Button from "./Button.svelte";
   const { session } = stores();
-  import { accountStore } from "../../store/accountStore";
+  import { accounts } from "../../store/accounts";
 
   export let toggle = true;
-
 </script>
 
 <aside
@@ -26,8 +25,8 @@
       </div>
       <div class="pt-6 mx-4">
         <h4 class="text-gray-600 pl-2 text-xs pb-4">PROJECTS</h4>
-        {#if $session.user && $accountStore.length > 0}
-          {#each $accountStore as account}
+        {#if $session.user && $accounts.length > 0}
+          {#each $accounts as account}
             <div class="flex py-2 hover:bg-blue-100 hover:text-blue-500">
               <i class="material-icons-outlined my-auto pl-2 pr-4">
                 corporate_fare

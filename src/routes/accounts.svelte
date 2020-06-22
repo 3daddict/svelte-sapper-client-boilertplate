@@ -1,15 +1,19 @@
 <script>
-  import { accountStore } from "../store/accountStore";
+  import { accounts } from "../store/accounts";
+  import { goto, stores } from "@sapper/app";
+  const { session } = stores();
 
+  $: console.log("$ession in account", $session);
 </script>
 
 <ul>
-  {#if $accountStore.length > 0}
-    {#each $accountStore as account}
+  {#if $accounts.length > 0}
+    {#each $accounts as account}
       <li>
         <a
           class="hover:underline text-blue-500"
           href="/account/{account._id}"
+          rel="prefetch"
           id={account._id}>
           {account.accountName}
         </a>
