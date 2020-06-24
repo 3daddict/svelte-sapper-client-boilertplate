@@ -1,11 +1,9 @@
 <script>
-  import * as api from "api.js";
   import { onMount, onDestroy } from "svelte";
   import { goto, stores } from "@sapper/app";
   import { post } from "auth.js";
   import TextInput from "../components/UI/TextInput.svelte";
   import Button from "../components/UI/Button.svelte";
-  //   import { accountStore } from "../store/accountStore";
 
   const { session } = stores();
 
@@ -15,32 +13,19 @@
   let user = [];
 
   async function submit() {
+    // call api to login user
     const response = await post(`auth/login`, { email, password });
-
+    // handle api data error
     if (!response.success) {
       return console.log("Something went wrong logging in...");
     }
-
+    // update the session data of user and route
     if (response.user) {
       $session.user = response.user;
       $session.token = response.token;
-      //   updateStore($session.token, $session.user._id);
-      goto("/accounts");
+      return goto("/accounts");
     }
   }
-
-  // async function updateStore(token, userID) {
-  //     const res = await api.get(`accounts/`, token, userID);
-  //     const accountData = await res.data;
-
-  //     if (!accountData) {
-  //         return console.log('No Account Data Returned 😭')
-  //     }
-
-  //     return accountStore.set(accountData);
-  // }
-
-  //$: console.log('$', $accountStore);
 </script>
 
 <svelte:head>
