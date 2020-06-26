@@ -21,7 +21,7 @@
 
 <script>
   export let accountData;
-  // console.log("client _id", accountData);
+  console.log("client _id", accountData);
 
   $: projects = accountData.projects;
 
@@ -42,7 +42,7 @@
       <li>
         <a
           class="hover:underline text-blue-500"
-          href="project/{project._id}"
+          href="project/{accountData._id}/{project._id}"
           rel="prefetch"
           id={project._id}>
           {project.projectName}
