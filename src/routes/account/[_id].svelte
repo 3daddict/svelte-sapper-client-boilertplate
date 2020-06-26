@@ -35,7 +35,7 @@
         <!-- Prefetch the data on link hover rel="prefetch" -->
         <a
           class="hover:underline text-blue-500"
-          href="project/{project._id}"
+          href="account/{accountData._id}/project/{project._id}"
           rel="prefetch"
           id={project._id}>
           {project.projectName}
