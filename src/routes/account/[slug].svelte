@@ -4,7 +4,7 @@
   export async function preload(page, session) {
     console.log("page in [_id.svelte]", page);
     console.log("session in [_id.svelte]", session);
-    const { _id } = page.params;
+    const { _id, slug } = page.params;
 
     const res = await api.get(
       `accounts/${_id}`,
@@ -40,9 +40,10 @@
   {#if projects}
     {#each projects as project}
       <li>
+      <!-- Account url will be slug param from api response object -->
         <a
           class="hover:underline text-blue-500"
-          href="project/{accountData._id}/{project._id}"
+          href="account/{accountData.slug}/project/{project._id}"
           rel="prefetch"
           id={project._id}>
           {project.projectName}

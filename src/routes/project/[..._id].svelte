@@ -1,7 +1,7 @@
 <script context="module">
   export async function preload({ params }) {
     console.log("params in project", { params });
-    let [account, project] = params.slug;
+    let [account, project] = params._id;
 
     return { account, project };
   }
