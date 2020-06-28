@@ -8,6 +8,7 @@
     // Public Routes
     const logoutRoutes = ["/login", "/register", "/forgot"];
 
+    // redirect if logged in and redirect if logged out
     if (user && logoutRoutes.includes(path)) {
       return this.redirect(302, "accounts");
     } else if (!user && loginRoutes.includes(path)) {
@@ -17,25 +18,31 @@
 </script>
 
 <script>
-  import { onMount, afterUpdate, beforeUpdate } from "svelte";
-  import * as api from "api.js";
+  import { afterUpdate } from "svelte";
   import { stores } from "@sapper/app";
   import { accounts } from "../store/accounts";
+  import * as api from "api.js";
   import Nav from "../components/Nav.svelte";
 
   const { session } = stores();
 
   export let segment;
 
+  // populate the accounts store
+  // afterUpdate is used here to avoid persisting data
   afterUpdate(async () => {
+    // check for session user and that store is empty
     if ($session.user._id && $accounts.length === 0) {
-      console.log("this is only once done to avoid persisting data");
+      // call api for users store data
       const res = await api.get(`accounts/`, $session.token, $session.user._id);
       const accountData = await res.data;
+      // handle api data error
       if (!accountData) {
-        return console.log("No Account Data Returned 😭");
+        return console.log("Could not fetch data from api...");
       }
+      // set store data from api response
       accounts.setupAccounts(accountData);
+      console.log("Store Data Retrieved and Set...");
     }
   });
 </script>
