@@ -2,18 +2,14 @@
   import * as api from "api.js";
 
   export async function preload(page, session) {
-    console.log("page in [_id.svelte]", page);
-    console.log("session in [_id.svelte]", session);
-    const { _id } = page.params;
+    //console.log("page in [_id.svelte]", page);
+    //console.log("session in [_id.svelte]", session);
+    const { slug } = page.params;
 
-    const res = await api.get(
-      `accounts/${_id}`,
-      session.token,
-      session.user._id
-    );
-    const accountData = res.data;
+    const res = await api.get(`accounts/${slug}`, session.token, session.user._id);
+    const accountData = res.data[0];
 
-    console.log("individual acount _id", accountData);
+    console.log("server account data:", accountData);
 
     return { accountData };
   }
@@ -21,7 +17,7 @@
 
 <script>
   export let accountData;
-  console.log("client _id", accountData);
+  console.log("client accountData:", accountData);
 
   $: projects = accountData.projects;
 
@@ -40,9 +36,10 @@
   {#if projects}
     {#each projects as project}
       <li>
+        <!-- Account url will be slug param from api response object -->
         <a
           class="hover:underline text-blue-500"
-          href="project/{accountData._id}/{project._id}"
+          href={`account/${accountData.slug}/${project._id}`}
           rel="prefetch"
           id={project._id}>
           {project.projectName}

@@ -12,7 +12,7 @@
       <li>
         <a
           class="hover:underline text-blue-500"
-          href="/account/{account._id}"
+          href="/account/{account.slug}"
           rel="prefetch"
           id={account._id}>
           {account.accountName}
