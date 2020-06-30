@@ -33,7 +33,7 @@
               </i>
               <a
                 class="flex flex-col"
-                href="account/{account._id}"
+                href="account/{account.slug}"
                 rel="prefetch"
                 on:click={() => (toggle = !toggle)}>
                 <h3 class="text-base">{account.accountName}</h3>
